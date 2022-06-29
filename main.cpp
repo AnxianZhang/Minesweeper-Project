@@ -22,7 +22,7 @@ int main(void)
     Grille jeu;
     Problem probleme;
     Historique_coup historique;
-    Details_coups new_move;
+    MoveDetails new_move;
     unsigned int num_commande;
 
     do
@@ -73,7 +73,7 @@ int main(void)
         saisie_dimension_grille(jeu);
         creat_new_move(jeu, new_move);
         //affichage du nouveau coup
-        cout << new_move.lettre << new_move.position << endl;
+        cout << new_move.letter << new_move.position << endl;
         desallocation_grille(jeu);
         break;
     default:

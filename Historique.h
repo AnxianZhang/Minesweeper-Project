@@ -11,18 +11,18 @@
 #include "Details.h"
 
 /**
- * @brief Type structuré pour l'historique
- *        des coups joués
+ * @brief Type structurï¿½ pour l'historique
+ *        des coups jouï¿½s
  *
  */
 struct Historique_coup {
     unsigned int nb_coup;
-    Details_coups* liste_coup;
+    MoveDetails* liste_coup;
 };
 
 /**
  * @brief Alloue un tableau en fonction du nombre
- *        de coup donné en entré
+ *        de coup donnï¿½ en entrï¿½
  *
  * @see desallocation_coup: Desalloue le tableau
  *

@@ -313,7 +313,7 @@ unsigned int count_hidden(const Grille& g);
  * @param [out] nw: la nouvelle position
  * @param [in] nb_cacher: nombre de case � l'�tat CACHER
  */
-void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_cacher);
+void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_cacher);
 
 /**
  * @brief Cr�er un nouveau coup en fonction de
@@ -322,7 +322,7 @@ void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_cache
  * @param [in] g: la grille
  * @param [in] nw: le nouveau coup
  */
-void creat_new_move(Grille& g, Details_coups& nw);
+void creat_new_move(Grille& g, MoveDetails& nw);
 /***************************** FIN COMMANDE 5 ********************************/
 
 #endif // !_GRILLE_

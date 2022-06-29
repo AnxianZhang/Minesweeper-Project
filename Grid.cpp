@@ -199,7 +199,7 @@ void saisie_grille(Grille& g, Problem& p, Historique_coup& hc)
     allocation_coup(hc);
     for (unsigned int j = 0; j < hc.nb_coup; ++j)
     {
-        cin >> hc.liste_coup[j].lettre;
+        cin >> hc.liste_coup[j].letter;
         cin >> hc.liste_coup[j].position;
     }
 }
@@ -351,20 +351,20 @@ void reconnaissance_coup(Grille& g, const Problem& p, const Historique_coup hc)
 {
     unsigned int position;
     unsigned int ligne, colonne;
-    char lettre;
+    char letter;
 
     for (unsigned int i = 0; i < hc.nb_coup; ++i)
     {
-        lettre = hc.liste_coup[i].lettre;
+        letter = hc.liste_coup[i].letter;
         position = hc.liste_coup[i].position;
         ligne = position / p.colonnes;
         colonne = position % p.colonnes;
 
-        if (lettre == 'D')
+        if (letter == 'D')
         {
             unmask(g, p, position, ligne, colonne);
         }
-        if (lettre == 'M')
+        if (letter == 'M')
         {
             mark(g, p, position, ligne, colonne);
         }
@@ -434,7 +434,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
 {
     int i = 0; // prends les valeurs 1 et -1
 
-    if (hc.liste_coup[hc.nb_coup - 1].lettre == 'M')
+    if (hc.liste_coup[hc.nb_coup - 1].letter == 'M')
     {
 
         for (unsigned int j = 0; j < p.bombes; ++j)
@@ -451,7 +451,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
             i = -1;
         }
     }
-    if (hc.liste_coup[hc.nb_coup - 1].lettre == 'D')
+    if (hc.liste_coup[hc.nb_coup - 1].letter == 'D')
     {
         for (unsigned int k = 0; k < p.bombes; ++k)
         {
@@ -586,7 +586,7 @@ unsigned int count_hidden(const Grille& g)
     return nb_HIDE;// 44
 }
 
-void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_HIDE)
+void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_HIDE)
 {
     // choisit un num�ros parmis tout les cases cach�s sauf 0
     unsigned int num_case = rand() % (nb_HIDE - 1) + 1;
@@ -604,9 +604,9 @@ void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_HIDE)
                 if (k == num_case){
                     nw.position = (i * g.colonnes) + j;
                     if (number <= 5) // choix de D ou M{
-                        nw.lettre = 'D';
+                        nw.letter = 'D';
                     else
-                        nw.lettre = 'M';
+                        nw.letter = 'M';
                     return; // sort de la fonction car k = num_case
                 }
             }
@@ -614,7 +614,7 @@ void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_HIDE)
     }
 }
 
-void creat_new_move(Grille& g, Details_coups& nw)
+void creat_new_move(Grille& g, MoveDetails& nw)
 {
     allocation_grille(g);
     traitement_grille(g);
