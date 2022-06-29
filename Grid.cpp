@@ -11,7 +11,7 @@
 #include <ctime>
 using namespace std;
 
-#include "Grille.h"
+#include "Grid.h"
 
 /***************************** DEBUT COMMANDE 1 ******************************/
 void allocation_grille(Grille& g)

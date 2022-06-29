@@ -13,7 +13,7 @@ using namespace std;
 
 #include "Problem.h"
 #include "Historique.h"
-#include "Grille.h"
+#include "Grid.h"
 
 int main(void)
 {

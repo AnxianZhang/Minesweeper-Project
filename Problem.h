@@ -1,6 +1,6 @@
 /****************************************
  Nom---------: Problem.h
- Role--------: Composant du problème
+ Role--------: Composant du problï¿½me
  Auteurs-----: Anxian Zhang, Ye vick
  Version-----: V2 du 31/12/2021
 ****************************************/
@@ -9,8 +9,8 @@
 #define _PROBLEM_
 
 /**
- * @brief Type structuré qui stock toutes les données relatives à
- *        la géneration d'un problème
+ * @brief Type structurï¿½ qui stock toutes les donnï¿½es relatives ï¿½
+ *        la gï¿½neration d'un problï¿½me
  *
  */
 struct Problem {
@@ -21,43 +21,43 @@ struct Problem {
 };
 
 /**
- * @brief Permet la saisie d'un problème
+ * @brief Permet la saisie d'un problï¿½me
  *
- * @param [out] p: problème à créer
+ * @param [out] p: problï¿½me ï¿½ crï¿½er
  */
 void saisie_problem(Problem& p);
 
 /**
  * @brief Alloue dynamiquement un tableau pour le nombre
- *        de bombes donné
+ *        de bombes donnï¿½
  *
- * @see desallocation_bombe: désalloue le tableau de bombe
+ * @see desallocation_bombe: dï¿½salloue le tableau de bombe
  *
- * @param [out] p: le problème
+ * @param [out] p: le problï¿½me
  */
 void allocation_bombe(Problem& p);
 
 /**
- * @brief Verifie si la position du coup joué
- *        corespond à celle d'une bombes
+ * @brief Verifie si la position du coup jouï¿½
+ *        corespond ï¿½ celle d'une bombes
  *
- * @param [in] p: le problème
+ * @param [in] p: le problï¿½me
  * @param [in] pos_coup: la position du coup
  * @return int 1 si c'est vrais, 0 si c'est faux
  */
 int verification(const Problem& p, const unsigned int pos_coup);
 
 /**
- * @brief Désalloue le tableau de bombe
+ * @brief Dï¿½salloue le tableau de bombe
  *
- * @param [out] p: le priblème
+ * @param [out] p: le priblï¿½me
  */
 void desallocation_bombe(Problem& p);
 
 /**
- * @brief Affiche le problème
+ * @brief Affiche le problï¿½me
  *
- * @param [in] p: le problème
+ * @param [in] p: le problï¿½me
  */
 void affichage_problem(const Problem& p);
 

@@ -1,21 +1,20 @@
-/****************************************
- Nom---------: Detail.h
- Role--------: Composant des détails
-               des coups
- Auteurs-----: Anxian Zhang, Ye vick
- Version-----: V1 du 31/12/2021
-****************************************/
+/**
+ * @file Details.h
+ * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
+           Vick Ye (vickye2908@gmail.com)
+ * @brief Component of details (of one move)
+ * @version 1
+ * @date 2021-12-31
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #ifndef _Details_
 #define _Details_
 
-/**
- * @brief Type structuré qui montre les détails
- *        d'un coup
- *
- */
-struct Details_coups {
-    char lettre;
+struct DetailsMove {
+    char letter;
     unsigned int position;
 };
 
