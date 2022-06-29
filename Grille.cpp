@@ -38,8 +38,8 @@ void initialisation_grille(Grille& g, const Problem& p)
     {
         for (unsigned int j = 0; j < p.colonnes; ++j)
         {
-            g.grille_jeu[i][j].contenue = 0;
-            g.grille_jeu[i][j].etat = CACHER;
+            g.grille_jeu[i][j].content = 0;
+            g.grille_jeu[i][j].state = HIDE;
         }
     }
 }
@@ -82,7 +82,7 @@ void place_bombes_debut(Grille& g, const Problem& p)
         {
             for (unsigned int k = 0; k < p.colonnes; ++k)// colonne
             {
-                g.grille_jeu[j][k].contenue = 9; // '9' indique une bombe
+                g.grille_jeu[j][k].content = 9; // '9' indique une bombe
                 ++indice_bombe;
                 if (indice_bombe == p.bombes)
                 {
@@ -104,7 +104,7 @@ void get_pos_bombes(const Grille& g, Problem& p)
     {
         for (unsigned int j = 0; j < p.colonnes; ++j)
         {
-            valeur = g.grille_jeu[i][j].contenue;
+            valeur = g.grille_jeu[i][j].content;
             if (valeur == 9) // si valeur = mine
             {
                 // calcule de la position
@@ -143,29 +143,29 @@ void affichage_grille(const Grille& g, const Problem& p)
     {
         for (unsigned int k = 0; k < p.colonnes; ++k)
         {
-            Etat_case etat = g.grille_jeu[j][k].etat;
-            unsigned int contenue = g.grille_jeu[j][k].contenue;
+            CaseState state = g.grille_jeu[j][k].state;
+            unsigned int content = g.grille_jeu[j][k].content;
 
-            if (etat == MARQUER)
+            if (state == MARK)
             {
                 cout << "|" << " x ";
             }
-            else if (etat == DEMASQUER)
+            else if (state == UNMASK)
             {
-                if (contenue == 0)
+                if (content == 0)
                 {
                     cout << "|" << "   ";
                 }
-                else if (contenue >= 1 && contenue <= 8)
+                else if (content >= 1 && content <= 8)
                 {
-                    cout << "|" << " " << contenue << " ";
+                    cout << "|" << " " << content << " ";
                 }
                 else
                 {
                     cout << "|" << " m ";
                 }
             }
-            else // si etat = CACHER
+            else // if state = HIDE
             {
                 cout << "|" << " . ";
             }
@@ -215,7 +215,7 @@ void attribution_bombe_perdu(Grille& g, const Problem& p)
         ligne = pos_bombe / p.colonnes;
         colonne = pos_bombe % p.colonnes;
 
-        g.grille_jeu[ligne][colonne].etat = DEMASQUER;
+        g.grille_jeu[ligne][colonne].state = UNMASK;
     }
 }
 
@@ -229,7 +229,7 @@ void initialisation_bombe(Grille& g, const Problem& p)
         pos_bombe = p.pos_bombe[i];
         ligne = pos_bombe / p.colonnes;
         colonne = pos_bombe % p.colonnes;
-        g.grille_jeu[ligne][colonne].contenue = 9;
+        g.grille_jeu[ligne][colonne].content = 9;
     }
 }
 
@@ -249,19 +249,19 @@ int verification(const Problem& p, const unsigned int pos_coup)
     return -1;
 }
 
-void marquer(Grille& g, const Problem& p, const unsigned int posc,
+void mark(Grille& g, const Problem& p, const unsigned int posc,
     const unsigned int lc, const unsigned int cc)
 {
-    int etat;
-    etat = verification(p, posc);
+    int state;
+    state = verification(p, posc);
 
-    if (etat == 1) // coup juste
+    if (state == 1) // coup juste
     {
-        g.grille_jeu[lc][cc].etat = MARQUER;
+        g.grille_jeu[lc][cc].state = MARK;
     }
     else // mauvais coup
     {
-        g.grille_jeu[lc][cc].etat = MARQUER;
+        g.grille_jeu[lc][cc].state = MARK;
         attribution_bombe_perdu(g, p);
     }
 }
@@ -272,15 +272,15 @@ void recurrence(Grille& g, const Problem& p, const unsigned int pos)
     unsigned int ligne = position_case / p.colonnes;
     unsigned int colonne = position_case % p.colonnes;
 
-    if (g.grille_jeu[ligne][colonne].etat == DEMASQUER)
+    if (g.grille_jeu[ligne][colonne].state == UNMASK)
     {
         return;
     }
 
-    g.grille_jeu[ligne][colonne].etat = DEMASQUER;
+    g.grille_jeu[ligne][colonne].state = UNMASK;
 
-    if (g.grille_jeu[ligne][colonne].contenue >= 1
-        && g.grille_jeu[ligne][colonne].contenue <= 8)
+    if (g.grille_jeu[ligne][colonne].content >= 1
+        && g.grille_jeu[ligne][colonne].content <= 8)
     {
         return;
     }
@@ -292,7 +292,7 @@ void recurrence(Grille& g, const Problem& p, const unsigned int pos)
             if (ligne + j >= 0 && ligne + j < p.lignes && colonne + k >= 0
                 && colonne + k < p.colonnes)
             {
-                if (g.grille_jeu[ligne + j][colonne + k].etat == CACHER)
+                if (g.grille_jeu[ligne + j][colonne + k].state == HIDE)
                 {
                     // nouvelle position � trait�
                     position_case = ((ligne + j) * p.colonnes) + (colonne + k);
@@ -303,12 +303,12 @@ void recurrence(Grille& g, const Problem& p, const unsigned int pos)
     }
 }
 
-void demasquer(Grille& g, const Problem& p, const unsigned int posc,
+void unmask(Grille& g, const Problem& p, const unsigned int posc,
     unsigned int lc, unsigned int cc)
 {
-    int etat = verification(p, posc);
+    int state = verification(p, posc);
 
-    if (etat == 1) // mauvais coup
+    if (state == 1) // mauvais coup
     {
         attribution_bombe_perdu(g, p);
     }
@@ -336,10 +336,10 @@ void give_value_adjacent(Grille& g, const Problem& p)
                 if ((ligne + j) < p.lignes && (ligne + j) >= 0 &&
                     ((colonne + k) < p.colonnes && (colonne + k) >= 0))
                 {
-                    unsigned int contient = g.grille_jeu[ligne + j][colonne + k].contenue;
+                    unsigned int contient = g.grille_jeu[ligne + j][colonne + k].content;
                     if (contient >= 0 && contient <= 7)
                     {
-                        ++g.grille_jeu[ligne + j][colonne + k].contenue;
+                        ++g.grille_jeu[ligne + j][colonne + k].content;
                     }
                 }
             }
@@ -362,11 +362,11 @@ void reconnaissance_coup(Grille& g, const Problem& p, const Historique_coup hc)
 
         if (lettre == 'D')
         {
-            demasquer(g, p, position, ligne, colonne);
+            unmask(g, p, position, ligne, colonne);
         }
         if (lettre == 'M')
         {
-            marquer(g, p, position, ligne, colonne);
+            mark(g, p, position, ligne, colonne);
         }
     }
 }
@@ -382,8 +382,8 @@ void creation_grille(Grille& g, Problem& p, Historique_coup hc)
 /**************************** DEBUT COMMANDE 3 *******************************/
 void test_won(Grille& g, const Problem& p)
 {
-    unsigned int compteur_bombe_marquer = 0;
-    unsigned int compteur_case_demasquer = 0;
+    unsigned int compteur_bombe_MARK = 0;
+    unsigned int compteur_case_UNMARK = 0;
     int teste = 0;
     unsigned int total_case = p.lignes * p.colonnes;
 
@@ -391,23 +391,23 @@ void test_won(Grille& g, const Problem& p)
     {
         for (unsigned int j = 0; j < p.colonnes; ++j)
         {
-            if (g.grille_jeu[i][j].etat == MARQUER &&
-                g.grille_jeu[i][j].contenue == 9)
+            if (g.grille_jeu[i][j].state == MARK &&
+                g.grille_jeu[i][j].content == 9)
             {
-                ++compteur_bombe_marquer;
+                ++compteur_bombe_MARK;
             }
-            else if (g.grille_jeu[i][j].etat == DEMASQUER &&
-                (g.grille_jeu[i][j].contenue <= 8 &&
-                    g.grille_jeu[i][j].contenue >= 0))
+            else if (g.grille_jeu[i][j].state == UNMASK &&
+                (g.grille_jeu[i][j].content <= 8 &&
+                    g.grille_jeu[i][j].content >= 0))
             {
-                ++compteur_case_demasquer;
+                ++compteur_case_UNMARK;
             }
         }
     }
 
-    if (compteur_bombe_marquer == p.bombes ||
-        compteur_case_demasquer == total_case - p.bombes)
-        /*total_case - p.bombes d�singne le nombre total de case CACHER*/
+    if (compteur_bombe_MARK == p.bombes ||
+        compteur_case_UNMARK == total_case - p.bombes)
+        /*total_case - p.bombes d�singne le nombre total de case HIDE*/
     {
         g.etatj = GAME_WON;
     }
@@ -512,8 +512,8 @@ void traitement_grille(Grille& g)
                 ++i; // incr�mentation du nombre de '|'
                 if (i == 2)
                 {
-                    g.grille_jeu[num_ligne][num_colonne].contenue = 0;
-                    g.grille_jeu[num_ligne][num_colonne].etat = DEMASQUER;
+                    g.grille_jeu[num_ligne][num_colonne].content = 0;
+                    g.grille_jeu[num_ligne][num_colonne].state = UNMASK;
                     ++num_colonne;
 
                     i = 1;
@@ -527,8 +527,8 @@ void traitement_grille(Grille& g)
             }
             else if (storage >= '1' && storage <= '8')
             {
-                g.grille_jeu[num_ligne][num_colonne].contenue = val_adja(storage);
-                g.grille_jeu[num_ligne][num_colonne].etat = DEMASQUER;
+                g.grille_jeu[num_ligne][num_colonne].content = val_adja(storage);
+                g.grille_jeu[num_ligne][num_colonne].state = UNMASK;
                 ++num_colonne;
                 //initialise � 0 � chaque fois qu'on a une valeur != de '|'
                 i = 0;
@@ -536,24 +536,24 @@ void traitement_grille(Grille& g)
             }
             else if (storage == 'm')
             {
-                g.grille_jeu[num_ligne][num_colonne].contenue = 9;
-                g.grille_jeu[num_ligne][num_colonne].etat = DEMASQUER;
+                g.grille_jeu[num_ligne][num_colonne].content = 9;
+                g.grille_jeu[num_ligne][num_colonne].state = UNMASK;
                 ++num_colonne;
                 i = 0;
                 j = 0;
             }
             else if (storage == 'x')
             {
-                g.grille_jeu[num_ligne][num_colonne].contenue = 0;
-                g.grille_jeu[num_ligne][num_colonne].etat = MARQUER;
+                g.grille_jeu[num_ligne][num_colonne].content = 0;
+                g.grille_jeu[num_ligne][num_colonne].state = MARK;
                 ++num_colonne;
                 i = 0;
                 j = 0;
             }
             else
             {
-                g.grille_jeu[num_ligne][num_colonne].contenue = 0;
-                g.grille_jeu[num_ligne][num_colonne].etat = CACHER;
+                g.grille_jeu[num_ligne][num_colonne].content = 0;
+                g.grille_jeu[num_ligne][num_colonne].state = HIDE;
                 ++num_colonne;
                 i = 0;
                 j = 0;
@@ -572,30 +572,30 @@ void traitement_grille(Grille& g)
 
 unsigned int count_hidden(const Grille& g)
 {
-    unsigned int nb_cacher = 0; //nombre de case cach�
+    unsigned int nb_HIDE = 0; //nombre de case cach�
     for (unsigned int i = 0; i < g.lignes; ++i)
     {
         for (unsigned int j = 0; j < g.colonnes; ++j)
         {
-            if (g.grille_jeu[i][j].etat == CACHER)
+            if (g.grille_jeu[i][j].state == HIDE)
             {
-                ++nb_cacher;
+                ++nb_HIDE;
             }
         }
     }
-    return nb_cacher;// 44
+    return nb_HIDE;// 44
 }
 
-void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_cacher)
+void choice_move(const Grille& g, Details_coups& nw, const unsigned int nb_HIDE)
 {
     // choisit un num�ros parmis tout les cases cach�s sauf 0
-    unsigned int num_case = rand() % (nb_cacher - 1) + 1;
+    unsigned int num_case = rand() % (nb_HIDE - 1) + 1;
 
     int k = 0; // indice qui va �tre incr�ment� jusqu'� que k = num_case
 
     for (unsigned int i = 0; i < g.lignes; ++i){
         for (unsigned int j = 0; j < g.colonnes; ++j){
-            if (g.grille_jeu[i][j].etat == CACHER){ 
+            if (g.grille_jeu[i][j].state == HIDE){ 
                 ++k;
 
                 /*prendre un valeur dans l'interval [1;10]
