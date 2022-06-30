@@ -2,7 +2,7 @@
  Nom---------: main.c
  Role--------: Application qui nous
                permet de jouer au 
-               dï¿½mineur de bout en bout
+               démineur de bout en bout
  Auteurs-----: Anxian Zhang, Ye vick
  Version-----: V7 du 31/12/2021
 ****************************************/

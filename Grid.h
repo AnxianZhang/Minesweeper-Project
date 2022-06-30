@@ -11,7 +11,7 @@
 #include "Case.h"
 #include "Problem.h"
 #include "Historique.h"
-#include "Etat_partie.h"
+#include "GameState.h"
 
 /**
  * @brief Type structur� de la grille de jeu
@@ -21,7 +21,7 @@ struct Grille {
     Case** grille_jeu;
     unsigned int lignes;
     unsigned int colonnes;
-    Etat_Partie etatj; // �tat du jeu
+    GameState state; // �tat du jeu
 };
 /***************************** DEBUT COMMANDE 1 ******************************/
 /**
@@ -227,7 +227,7 @@ void creation_grille(Grille& g, Problem& p, Historique_coup hc);
 /**
  * @brief Fait des testes sur l'ensemble de la grille
  *        pour d�terminer si la partie est gagn� ou pas
- *        en affectant GAME_WON ou GAME_NOT_WON � l'etatj
+ *        en affectant GAME_WON ou GAME_NOT_WON à l'état du jeu
  *
  * @param [in, out] g: la grille de jeu
  * @param [in] p: le probl�me
@@ -236,7 +236,7 @@ void test_won(Grille& g, const Problem& p);
 
 /**
  * @brief Affiche une ligne "game won" ou "game not won" en
- *        fonction de l'etatj de la grille
+ *        fonction de l'état de la grille
  *
  * @param [in] g: la grille de jeu
  */
@@ -248,7 +248,7 @@ void affichage_won(const Grille& g);
  *        on ne peut que perde sur le dernier coup jou�)
  *        avec les positions des bombes, en fonction du coup
  *        (M ou D) GAME_LOST ou GAME_NOT_LOST sera 
- *        attrituer � l'etatj
+ *        attrituer à l'état du jeu
  *
  * @param [in, out] g: la grille de jeu
  * @param [in] p: le probl�me
@@ -258,7 +258,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc);
 
 /**
  * @brief Affiche une ligne "game lost" ou "games not lost"
- *        fonction de l'etatj de la grille
+ *        fonction de l'état de jeu de la grille
  *
  * @param [in] g: la grille de jeu
  */

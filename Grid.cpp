@@ -409,17 +409,17 @@ void test_won(Grille& g, const Problem& p)
         compteur_case_UNMARK == total_case - p.bombes)
         /*total_case - p.bombes d�singne le nombre total de case HIDE*/
     {
-        g.etatj = GAME_WON;
+        g.state = GAME_WON;
     }
     else
     {
-        g.etatj = GAME_NOT_WON;
+        g.state = GAME_NOT_WON;
     }
 }
 
 void affichage_won(const Grille& g)
 {
-    if (g.etatj == GAME_WON)
+    if (g.state == GAME_WON)
     {
         cout << "game won" << endl;
     }
@@ -468,12 +468,12 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
         }
     }
 
-    (i == 1) ? g.etatj = GAME_NOT_LOST : g.etatj = GAME_LOST;
+    (i == 1) ? g.state = GAME_NOT_LOST : g.state = GAME_LOST;
 }
 
 void affichage_lost(const Grille& g)
 {
-    if (g.etatj == GAME_LOST)
+    if (g.state == GAME_LOST)
     {
         cout << "game lost" << endl;
     }
