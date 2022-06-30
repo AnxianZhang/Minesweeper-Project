@@ -19,7 +19,7 @@ using namespace std;
 #include "Grid.h"
 
 /***************************** DEBUT COMMANDE 1 ******************************/
-void allocation_grille(Grille& g)
+void allocation_grille(Grid& g)
 {
     g.grille_jeu = new Case * [g.lignes];
     for (unsigned int i = 0; i < g.lignes; ++i)
@@ -28,7 +28,7 @@ void allocation_grille(Grille& g)
     }
 }
 
-void desallocation_grille(Grille& g)
+void desallocation_grille(Grid& g)
 {
     for (unsigned int i = 0; i < g.lignes; ++i)
     {
@@ -37,7 +37,7 @@ void desallocation_grille(Grille& g)
     delete[]g.grille_jeu;
 }
 
-void initialisation_grille(Grille& g, const Problem& p)
+void initialisation_grille(Grid& g, const Problem& p)
 {
     for (unsigned int i = 0; i < p.lignes; ++i)
     {
@@ -49,7 +49,7 @@ void initialisation_grille(Grille& g, const Problem& p)
     }
 }
 
-void rand_bombes(Grille& g, const Problem& p)
+void rand_bombes(Grid& g, const Problem& p)
 {
     Case temps;
     unsigned int randl, randc; // respectivement ligne et colonne
@@ -68,7 +68,7 @@ void rand_bombes(Grille& g, const Problem& p)
     }
 }
 
-void place_bombes_debut(Grille& g, const Problem& p)
+void place_bombes_debut(Grid& g, const Problem& p)
 {
     assert(p.bombes <= p.lignes * p.colonnes);
 
@@ -98,7 +98,7 @@ void place_bombes_debut(Grille& g, const Problem& p)
     }
 }
 
-void get_pos_bombes(const Grille& g, Problem& p)
+void get_pos_bombes(const Grid& g, Problem& p)
 {
     unsigned int valeur;
     unsigned int position;
@@ -120,7 +120,7 @@ void get_pos_bombes(const Grille& g, Problem& p)
     }
 }
 
-void creation_problem(Grille& g, Problem& p)
+void creation_problem(Grid& g, Problem& p)
 {
     g.lignes = p.lignes;
     g.colonnes = p.colonnes;
@@ -133,7 +133,7 @@ void creation_problem(Grille& g, Problem& p)
 }
 /***************************** FIN COMMANDE 1 ********************************/
 /**************************** DEBUT COMMANDE 2 *******************************/
-void affichage_grille(const Grille& g, const Problem& p)
+void affichage_grille(const Grid& g, const Problem& p)
 {
     cout << p.lignes << " " << p.colonnes << endl;
 
@@ -184,7 +184,7 @@ void affichage_grille(const Grille& g, const Problem& p)
     }
 }
 
-void saisie_grille(Grille& g, Problem& p, Historique_coup& hc)
+void saisie_grille(Grid& g, Problem& p, Historique_coup& hc)
 {
     // récolte du problème
     saisie_problem(p);
@@ -208,7 +208,7 @@ void saisie_grille(Grille& g, Problem& p, Historique_coup& hc)
     }
 }
 
-void attribution_bombe_perdu(Grille& g, const Problem& p)
+void attribution_bombe_perdu(Grid& g, const Problem& p)
 {
     unsigned int pos_bombe;
     unsigned int ligne, colonne;
@@ -223,7 +223,7 @@ void attribution_bombe_perdu(Grille& g, const Problem& p)
     }
 }
 
-void initialisation_bombe(Grille& g, const Problem& p)
+void initialisation_bombe(Grid& g, const Problem& p)
 {
     unsigned int pos_bombe;
     unsigned int ligne, colonne;
@@ -253,7 +253,7 @@ int verification(const Problem& p, const unsigned int pos_coup)
     return -1;
 }
 
-void mark(Grille& g, const Problem& p, const unsigned int posc,
+void mark(Grid& g, const Problem& p, const unsigned int posc,
     const unsigned int lc, const unsigned int cc)
 {
     int state;
@@ -270,7 +270,7 @@ void mark(Grille& g, const Problem& p, const unsigned int posc,
     }
 }
 
-void recurrence(Grille& g, const Problem& p, const unsigned int pos)
+void recurrence(Grid& g, const Problem& p, const unsigned int pos)
 {
     unsigned int position_case = pos;
     unsigned int ligne = position_case / p.colonnes;
@@ -307,7 +307,7 @@ void recurrence(Grille& g, const Problem& p, const unsigned int pos)
     }
 }
 
-void unmask(Grille& g, const Problem& p, const unsigned int posc,
+void unmask(Grid& g, const Problem& p, const unsigned int posc,
     unsigned int lc, unsigned int cc)
 {
     int state = verification(p, posc);
@@ -322,7 +322,7 @@ void unmask(Grille& g, const Problem& p, const unsigned int posc,
     }
 }
 
-void give_value_adjacent(Grille& g, const Problem& p)
+void give_value_adjacent(Grid& g, const Problem& p)
 {
     unsigned int pos_bombe;
     unsigned int ligne, colonne;
@@ -351,7 +351,7 @@ void give_value_adjacent(Grille& g, const Problem& p)
     }
 }
 
-void reconnaissance_coup(Grille& g, const Problem& p, const Historique_coup hc)
+void reconnaissance_coup(Grid& g, const Problem& p, const Historique_coup hc)
 {
     unsigned int position;
     unsigned int ligne, colonne;
@@ -375,7 +375,7 @@ void reconnaissance_coup(Grille& g, const Problem& p, const Historique_coup hc)
     }
 }
 
-void creation_grille(Grille& g, Problem& p, Historique_coup hc)
+void creation_grille(Grid& g, Problem& p, Historique_coup hc)
 {
     initialisation_grille(g, p);
     initialisation_bombe(g, p); 
@@ -384,7 +384,7 @@ void creation_grille(Grille& g, Problem& p, Historique_coup hc)
 }
 /***************************** FIN COMMANDE 2 ********************************/
 /**************************** DEBUT COMMANDE 3 *******************************/
-void test_won(Grille& g, const Problem& p)
+void test_won(Grid& g, const Problem& p)
 {
     unsigned int compteur_bombe_MARK = 0;
     unsigned int compteur_case_UNMARK = 0;
@@ -421,7 +421,7 @@ void test_won(Grille& g, const Problem& p)
     }
 }
 
-void affichage_won(const Grille& g)
+void affichage_won(const Grid& g)
 {
     if (g.state == GAME_WON)
     {
@@ -434,7 +434,7 @@ void affichage_won(const Grille& g)
 }
 /***************************** FIN COMMANDE 3 ********************************/
 /**************************** DEBUT COMMANDE 4 *******************************/
-void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
+void test_lost(Grid& g, const Problem& p, const Historique_coup& hc)
 {
     int i = 0; // prends les valeurs 1 et -1
 
@@ -475,7 +475,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
     (i == 1) ? g.state = GAME_NOT_LOST : g.state = GAME_LOST;
 }
 
-void affichage_lost(const Grille& g)
+void affichage_lost(const Grid& g)
 {
     if (g.state == GAME_LOST)
     {
@@ -488,7 +488,7 @@ void affichage_lost(const Grille& g)
 }
 /***************************** FIN COMMANDE 4 ********************************/
 /**************************** DEBUT COMMANDE 5 *******************************/
-void saisie_dimension_grille(Grille& g)
+void saisie_dimension_grille(Grid& g)
 {
     cin >> g.lignes >> g.colonnes;
 }
@@ -499,7 +499,7 @@ unsigned int val_adja(char storage)
     return storage - '0';
 }
 
-void traitement_grille(Grille& g)
+void traitement_grille(Grid& g)
 {
     unsigned int num_ligne = 0; // nb ligne dans les entrés lu
     unsigned int num_colonne = 0; // nb colonne dans les entrés lu
@@ -574,7 +574,7 @@ void traitement_grille(Grille& g)
     } while (num_ligne != g.lignes);
 }
 
-unsigned int count_hidden(const Grille& g)
+unsigned int count_hidden(const Grid& g)
 {
     unsigned int nb_HIDE = 0; //nombre de case caché
     for (unsigned int i = 0; i < g.lignes; ++i)
@@ -590,7 +590,7 @@ unsigned int count_hidden(const Grille& g)
     return nb_HIDE;// 44
 }
 
-void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_HIDE)
+void choice_move(const Grid& g, MoveDetails& nw, const unsigned int nb_HIDE)
 {
     // choisit un numéros parmis tout les cases cachés sauf 0
     unsigned int num_case = rand() % (nb_HIDE - 1) + 1;
@@ -618,7 +618,7 @@ void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_HIDE)
     }
 }
 
-void creat_new_move(Grille& g, MoveDetails& nw)
+void creat_new_move(Grid& g, MoveDetails& nw)
 {
     allocation_grille(g);
     traitement_grille(g);
