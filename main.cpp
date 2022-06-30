@@ -19,7 +19,7 @@ int main(void)
 {
     srand((unsigned)time(NULL));
 
-    Grille jeu;
+    Grid jeu;
     Problem probleme;
     Historique_coup historique;
     MoveDetails new_move;
@@ -33,7 +33,7 @@ int main(void)
     switch (num_commande)
     {
     case 1:
-        // Gï¿½nï¿½ration du problï¿½me
+        // Génération du problème
         saisie_problem(probleme);
         creation_problem(jeu, probleme);
         affichage_problem(probleme);
@@ -41,7 +41,7 @@ int main(void)
         desallocation_grille(jeu);
         break;
     case 2:
-        // Gï¿½nï¿½ration de la grille
+        // Génération de la grille
         saisie_grille(jeu, probleme, historique);
         creation_grille(jeu, probleme, historique);
         affichage_grille(jeu, probleme);
@@ -50,7 +50,7 @@ int main(void)
         desallocation_grille(jeu);
         break;
     case 3:
-        // Partie gagnï¿½ ?
+        // Partie gagné ?
         saisie_grille(jeu, probleme, historique);
         creation_grille(jeu, probleme, historique);
         test_won(jeu, probleme);
@@ -69,7 +69,7 @@ int main(void)
         desallocation_grille(jeu);
         break;
     case 5:
-        // Crï¿½ation d'un nouveau coup
+        // Création d'un nouveau coup
         saisie_dimension_grille(jeu);
         creat_new_move(jeu, new_move);
         //affichage du nouveau coup

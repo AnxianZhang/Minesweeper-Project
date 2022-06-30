@@ -18,7 +18,7 @@
 #include "Historique.h"
 #include "GameState.h"
 
-struct Grille {
+struct Grid {
     Case** grille_jeu;
     unsigned int lignes;
     unsigned int colonnes;
@@ -31,7 +31,7 @@ struct Grille {
  * @param [in] g: la grille qui va être généré avec le problème donné
  * @param [in] p: le problème
  */
-void creation_problem(Grille& g, Problem& p);
+void creation_problem(Grid& g, Problem& p);
 
 /**
  * @brief Alloue dynamiquement un tableau à deux
@@ -42,7 +42,7 @@ void creation_problem(Grille& g, Problem& p);
  *
  * @param [out] g: la grille
  */
-void allocation_grille(Grille& g);
+void allocation_grille(Grid& g);
 
 /**
  * @brief Désalloue le tableau à deux
@@ -50,7 +50,7 @@ void allocation_grille(Grille& g);
  *
  * @param [out] g: la grille
  */
-void desallocation_grille(Grille& g);
+void desallocation_grille(Grid& g);
 
 /**
  * @brief Initialise toutes les cases du tableau
@@ -59,7 +59,7 @@ void desallocation_grille(Grille& g);
  * @param [out] g: la grille
  * @param [in] p: le problème
  */
-void initialisation_grille(Grille& g, const Problem& p);
+void initialisation_grille(Grid& g, const Problem& p);
 
 /**
  * @brief Place le nombre de bombe indiquée en entrée
@@ -72,7 +72,7 @@ void initialisation_grille(Grille& g, const Problem& p);
  * @param [in] p: le problème
  * @pre p.bombes <= p.lignes * p.colonnes
  */
-void place_bombes_debut(Grille& g, const Problem& p);
+void place_bombes_debut(Grid& g, const Problem& p);
 
 /**
  * @brief Mélange les cases du tableau pour placer
@@ -84,7 +84,7 @@ void place_bombes_debut(Grille& g, const Problem& p);
  * @param [out] g: la grille de jeu
  * @param [in] p: le problème
  */
-void rand_bombes(Grille& g, const Problem& p);
+void rand_bombes(Grid& g, const Problem& p);
 
 /**
  * @brief Cherche toute les bombes qui se trouvent
@@ -95,7 +95,7 @@ void rand_bombes(Grille& g, const Problem& p);
  * @param [in] g: la grille de jeu
  * @param [in, out] p: le problème
  */
-void get_pos_bombes(const Grille& g, Problem& p);
+void get_pos_bombes(const Grid& g, Problem& p);
 /***************************** FIN COMMANDE 1 ********************************/
 /**************************** DEBUT COMMANDE 2 *******************************/
 
@@ -106,7 +106,7 @@ void get_pos_bombes(const Grille& g, Problem& p);
  * @param [out] p: le problème
  * @param [out] hc: l'historique des coups
  */
-void saisie_grille(Grille& g, Problem& p, Historique_coup& hc);
+void saisie_grille(Grid& g, Problem& p, Historique_coup& hc);
 
 /**
  * @brief Initalise les positions des bombes donnée en entrée
@@ -115,7 +115,7 @@ void saisie_grille(Grille& g, Problem& p, Historique_coup& hc);
  * @param [out] g: le grille
  * @param [in] p: le problème
  */
-void initialisation_bombe(Grille& g, const Problem& p);
+void initialisation_bombe(Grid& g, const Problem& p);
 
 /**
  * @brief Affiche une grille avec son contenue en fonction
@@ -124,7 +124,7 @@ void initialisation_bombe(Grille& g, const Problem& p);
  * @param [in] g: la grille de jeu
  * @param [in] p: le problème
  */
-void affichage_grille(const Grille& g, const Problem& p);
+void affichage_grille(const Grid& g, const Problem& p);
 
 /**
  * @brief Affecte les bombes à leurs position respective
@@ -135,7 +135,7 @@ void affichage_grille(const Grille& g, const Problem& p);
  * @param [out] g: la grille
  * @param [in] p: le problème
  */
-void attribution_bombe_perdu(Grille& g, const Problem& p);
+void attribution_bombe_perdu(Grid& g, const Problem& p);
 
 /**
  * @brief Verifie si la position du coup jouer
@@ -160,7 +160,7 @@ int verification(const Problem& p, const unsigned int pos_coup);
  * @param [in] lc: ligne du coup jouer
  * @param [in] cc: colonne du coup jouer
  */
-void mark(Grille& g, const Problem& p, const unsigned int posc,
+void mark(Grid& g, const Problem& p, const unsigned int posc,
     const unsigned int lc, const unsigned int cc);
 
 /**
@@ -178,7 +178,7 @@ void mark(Grille& g, const Problem& p, const unsigned int posc,
  * @param [in] lc: ligne du coup jouer
  * @param [in] cc: colonne du coup jouer
  */
-void unmask(Grille& g, const Problem& p, const unsigned int posc,
+void unmask(Grid& g, const Problem& p, const unsigned int posc,
     const unsigned int lc, const unsigned int cc);
 
 /**
@@ -191,7 +191,7 @@ void unmask(Grille& g, const Problem& p, const unsigned int posc,
 * @param [in] p: le problème
 * @param [in] pos: la postion du coup
 */
-void recurrence(Grille& g, const Problem& p, const unsigned int pos);
+void recurrence(Grid& g, const Problem& p, const unsigned int pos);
 
 /**
  * @brief Indique le nombre de bombe dans les cases adjacentes
@@ -199,7 +199,7 @@ void recurrence(Grille& g, const Problem& p, const unsigned int pos);
  * @param [out] g: la grille de jeu
  * @param [in] p: le problème
  */
-void give_value_adjacent(Grille& g, const Problem& p);
+void give_value_adjacent(Grid& g, const Problem& p);
 
 /**
  * @brief Traite les coups jouer pour savoir s'il faut
@@ -212,7 +212,7 @@ void give_value_adjacent(Grille& g, const Problem& p);
  * @param [in] p: le problème
  * @param [in] hc: l'historique de coup
  */
-void reconnaissance_coup(Grille& g, const Problem& p, const Historique_coup hc);
+void reconnaissance_coup(Grid& g, const Problem& p, const Historique_coup hc);
 
 /**
  * @brief Créer la grille pour ensuite exploiter
@@ -222,7 +222,7 @@ void reconnaissance_coup(Grille& g, const Problem& p, const Historique_coup hc);
  * @param [in] p: le problème
  * @param [in] hc: l'historique de coup
  */
-void creation_grille(Grille& g, Problem& p, Historique_coup hc);
+void creation_grille(Grid& g, Problem& p, Historique_coup hc);
 /***************************** FIN COMMANDE 2 ********************************/
 /**************************** DEBUT COMMANDE 3 *******************************/
 /**
@@ -233,7 +233,7 @@ void creation_grille(Grille& g, Problem& p, Historique_coup hc);
  * @param [in, out] g: la grille de jeu
  * @param [in] p: le problème
  */
-void test_won(Grille& g, const Problem& p);
+void test_won(Grid& g, const Problem& p);
 
 /**
  * @brief Affiche une ligne "game won" ou "game not won" en
@@ -241,7 +241,7 @@ void test_won(Grille& g, const Problem& p);
  *
  * @param [in] g: la grille de jeu
  */
-void affichage_won(const Grille& g);
+void affichage_won(const Grid& g);
 /***************************** FIN COMMANDE 3 ********************************/
 /**************************** DEBUT COMMANDE 4 *******************************/
 /**
@@ -255,7 +255,7 @@ void affichage_won(const Grille& g);
  * @param [in] p: le problème
  * @param [in] hc: l'historique des coups
  */
-void test_lost(Grille& g, const Problem& p, const Historique_coup& hc);
+void test_lost(Grid& g, const Problem& p, const Historique_coup& hc);
 
 /**
  * @brief Affiche une ligne "game lost" ou "games not lost"
@@ -263,7 +263,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc);
  *
  * @param [in] g: la grille de jeu
  */
-void affichage_lost(const Grille& g);
+void affichage_lost(const Grid& g);
 /***************************** FIN COMMANDE 4 ********************************/
 /**************************** DEBUT COMMANDE 5 *******************************/
 
@@ -273,7 +273,7 @@ void affichage_lost(const Grille& g);
  *
  * @param [out] g: la grille
  */
-void saisie_dimension_grille(Grille& g);
+void saisie_dimension_grille(Grid& g);
 
 /**
  * @brief Convertit un chiffre de type char en unsigned int
@@ -293,7 +293,7 @@ unsigned int val_adja(char storage);
  *
  * @param [in,out] g: la grille
  */
-void traitement_grille(Grille& g);
+void traitement_grille(Grid& g);
 
 /**
  * @brief Compte le nombre de case qui sont
@@ -302,7 +302,7 @@ void traitement_grille(Grille& g);
  * @param [in] g: la grille
  * @return unsigned int: le totale de case CACHER
  */
-unsigned int count_hidden(const Grille& g);
+unsigned int count_hidden(const Grid& g);
 
 /**
  * @brief Choisie un coups parmis les cases
@@ -314,7 +314,7 @@ unsigned int count_hidden(const Grille& g);
  * @param [out] nw: la nouvelle position
  * @param [in] nb_cacher: nombre de case à l'état CACHER
  */
-void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_cacher);
+void choice_move(const Grid& g, MoveDetails& nw, const unsigned int nb_cacher);
 
 /**
  * @brief Créer un nouveau coup en fonction de
@@ -323,7 +323,7 @@ void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_cacher)
  * @param [in] g: la grille
  * @param [in] nw: le nouveau coup
  */
-void creat_new_move(Grille& g, MoveDetails& nw);
+void creat_new_move(Grid& g, MoveDetails& nw);
 /***************************** FIN COMMANDE 5 ********************************/
 
 #endif // !_GRID_
