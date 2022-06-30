@@ -72,8 +72,7 @@ void place_bombes_debut(Grille& g, const Problem& p)
 {
     assert(p.bombes <= p.lignes * p.colonnes);
 
-    /* indiquï¿½ le nombre de bombe qu'on ï¿½ deja placï¿½
-    sert aussi d'indice */
+    /* indique le nombre de bombe qu'on à deja placésert aussi d'indice */
     int indice_bombe = 0;
 
     // sort de la fonction si le nombre de bombe est null
@@ -92,7 +91,7 @@ void place_bombes_debut(Grille& g, const Problem& p)
                 if (indice_bombe == p.bombes)
                 {
                     rand_bombes(g, p);
-                    return; // sort quand toute les bombes sont placï¿½
+                    return; // sort quand toute les bombes sont placé
                 }
             }
         }
@@ -187,7 +186,7 @@ void affichage_grille(const Grille& g, const Problem& p)
 
 void saisie_grille(Grille& g, Problem& p, Historique_coup& hc)
 {
-    // rï¿½colte du problï¿½me
+    // récolte du problème
     saisie_problem(p);
     allocation_bombe(p);
     for (unsigned int i = 0; i < p.bombes; ++i)
@@ -199,7 +198,7 @@ void saisie_grille(Grille& g, Problem& p, Historique_coup& hc)
     g.colonnes = p.colonnes;
     allocation_grille(g);
 
-    // rï¿½colte de l'historique des coups
+    // récolte de l'historique des coups
     cin >> hc.nb_coup;
     allocation_coup(hc);
     for (unsigned int j = 0; j < hc.nb_coup; ++j)
@@ -299,7 +298,7 @@ void recurrence(Grille& g, const Problem& p, const unsigned int pos)
             {
                 if (g.grille_jeu[ligne + j][colonne + k].state == HIDE)
                 {
-                    // nouvelle position ï¿½ traitï¿½
+                    // nouvelle position à traité
                     position_case = ((ligne + j) * p.colonnes) + (colonne + k);
                     recurrence(g, p, position_case);
                 }
@@ -412,7 +411,7 @@ void test_won(Grille& g, const Problem& p)
 
     if (compteur_bombe_MARK == p.bombes ||
         compteur_case_UNMARK == total_case - p.bombes)
-        /*total_case - p.bombes dï¿½singne le nombre total de case HIDE*/
+        /*total_case - p.bombes désingne le nombre total de case HIDE*/
     {
         g.state = GAME_WON;
     }
@@ -449,7 +448,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
                 i = 1;
             }
         }
-        /*si i = 0 alors le dernier coup jouï¿½ est un marquage sur
+        /*si i = 0 alors le dernier coup joué est un marquage sur
         une case vide donc i = -1 pour indique que la partie est perdu*/
         if (i == 0)
         {
@@ -465,7 +464,7 @@ void test_lost(Grille& g, const Problem& p, const Historique_coup& hc)
                 i = -1;
             }
         }
-        /*si i = 0 alors le dernier coup jouï¿½ est un dï¿½masquage sur
+        /*si i = 0 alors le dernier coup joué est un démasquage sur
         une case vide donc i = 1 pour indique que la partie n'est pas perdu*/
         if (i == 0)
         {
@@ -502,19 +501,19 @@ unsigned int val_adja(char storage)
 
 void traitement_grille(Grille& g)
 {
-    unsigned int num_ligne = 0; // nï¿½ligne dans les entrï¿½s lu
-    unsigned int num_colonne = 0; // nï¿½colonne dans les entrï¿½s lu
+    unsigned int num_ligne = 0; // nb ligne dans les entrés lu
+    unsigned int num_colonne = 0; // nb colonne dans les entrés lu
     int i = 0, j = 0; // nombre de '|' lu
     char storage;
 
     do
     {   
         cin >> storage;
-        if (storage != '_') // prend tout les caractï¿½re sauf '_'
+        if (storage != '_') // prend tout les caractère sauf '_'
         {
             if (storage == '|')
             {
-                ++i; // incrï¿½mentation du nombre de '|'
+                ++i; // incrémentation du nombre de '|'
                 if (i == 2)
                 {
                     g.grille_jeu[num_ligne][num_colonne].content = 0;
@@ -577,7 +576,7 @@ void traitement_grille(Grille& g)
 
 unsigned int count_hidden(const Grille& g)
 {
-    unsigned int nb_HIDE = 0; //nombre de case cachï¿½
+    unsigned int nb_HIDE = 0; //nombre de case caché
     for (unsigned int i = 0; i < g.lignes; ++i)
     {
         for (unsigned int j = 0; j < g.colonnes; ++j)
@@ -593,10 +592,10 @@ unsigned int count_hidden(const Grille& g)
 
 void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_HIDE)
 {
-    // choisit un numï¿½ros parmis tout les cases cachï¿½s sauf 0
+    // choisit un numéros parmis tout les cases cachés sauf 0
     unsigned int num_case = rand() % (nb_HIDE - 1) + 1;
 
-    int k = 0; // indice qui va ï¿½tre incrï¿½mentï¿½ jusqu'ï¿½ que k = num_case
+    int k = 0; // indice qui va être incrémenté jusqu'à que k = num_case
 
     for (unsigned int i = 0; i < g.lignes; ++i){
         for (unsigned int j = 0; j < g.colonnes; ++j){
@@ -604,7 +603,7 @@ void choice_move(const Grille& g, MoveDetails& nw, const unsigned int nb_HIDE)
                 ++k;
 
                 /*prendre un valeur dans l'interval [1;10]
-                qui va dï¿½terminer si le coup sera M ou D*/
+                qui va déterminer si le coup sera M ou D*/
                 unsigned int number = rand() % (10 - 1) + 1;
                 if (k == num_case){
                     nw.position = (i * g.colonnes) + j;
