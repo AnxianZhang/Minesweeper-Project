@@ -1,9 +1,14 @@
-/****************************************
- Nom---------: Grille.cpp
- Role--------: Composant de la grille
- Auteurs-----: Anxian Zhang, Ye vick
- Version-----: V7 du 31/12/2021
-****************************************/
+/**
+ * @file Grid.cpp
+ * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
+           Vick Ye (vickye2908@gmail.com)
+ * @brief Composant de la grille
+ * @version 7
+ * @date 2021-12-31
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include <iostream>
 #include <cstring>

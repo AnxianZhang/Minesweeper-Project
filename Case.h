@@ -2,7 +2,7 @@
  * @file Case.h
  * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
            Vick Ye (vickye2908@gmail.com)
- * @brief Component of case(s)
+ * @brief Composant d'un case
  * @version 1
  * @date 2021-12-31
  * 

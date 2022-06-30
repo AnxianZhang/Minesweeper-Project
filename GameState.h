@@ -2,7 +2,7 @@
  * @file GameState.h
  * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
            Vick Ye (vickye2908@gmail.com)
- * @brief Component of the state of a game
+ * @brief Composant de l'état d'un partie
  * @version 1
  * @date 2021-12-31
  * 
