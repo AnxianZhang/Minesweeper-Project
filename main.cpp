@@ -12,7 +12,7 @@
 using namespace std;
 
 #include "Problem.h"
-#include "Historique.h"
+#include "Historic.h"
 #include "Grid.h"
 
 int main(void)
@@ -21,7 +21,7 @@ int main(void)
 
     Grid jeu;
     Problem probleme;
-    Historique_coup historique;
+    MoveHistoric historique;
     MoveDetails new_move;
     unsigned int num_commande;
 

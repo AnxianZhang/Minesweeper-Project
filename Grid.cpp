@@ -184,7 +184,7 @@ void affichage_grille(const Grid& g, const Problem& p)
     }
 }
 
-void saisie_grille(Grid& g, Problem& p, Historique_coup& hc)
+void saisie_grille(Grid& g, Problem& p, MoveHistoric& hc)
 {
     // récolte du problème
     saisie_problem(p);
@@ -199,12 +199,12 @@ void saisie_grille(Grid& g, Problem& p, Historique_coup& hc)
     allocation_grille(g);
 
     // récolte de l'historique des coups
-    cin >> hc.nb_coup;
+    cin >> hc.nbMove;
     allocation_coup(hc);
-    for (unsigned int j = 0; j < hc.nb_coup; ++j)
+    for (unsigned int j = 0; j < hc.nbMove; ++j)
     {
-        cin >> hc.liste_coup[j].letter;
-        cin >> hc.liste_coup[j].position;
+        cin >> hc.list[j].letter;
+        cin >> hc.list[j].position;
     }
 }
 
@@ -351,16 +351,16 @@ void give_value_adjacent(Grid& g, const Problem& p)
     }
 }
 
-void reconnaissance_coup(Grid& g, const Problem& p, const Historique_coup hc)
+void reconnaissance_coup(Grid& g, const Problem& p, const MoveHistoric hc)
 {
     unsigned int position;
     unsigned int ligne, colonne;
     char letter;
 
-    for (unsigned int i = 0; i < hc.nb_coup; ++i)
+    for (unsigned int i = 0; i < hc.nbMove; ++i)
     {
-        letter = hc.liste_coup[i].letter;
-        position = hc.liste_coup[i].position;
+        letter = hc.list[i].letter;
+        position = hc.list[i].position;
         ligne = position / p.colonnes;
         colonne = position % p.colonnes;
 
@@ -375,7 +375,7 @@ void reconnaissance_coup(Grid& g, const Problem& p, const Historique_coup hc)
     }
 }
 
-void creation_grille(Grid& g, Problem& p, Historique_coup hc)
+void creation_grille(Grid& g, Problem& p, MoveHistoric hc)
 {
     initialisation_grille(g, p);
     initialisation_bombe(g, p); 
@@ -434,16 +434,16 @@ void affichage_won(const Grid& g)
 }
 /***************************** FIN COMMANDE 3 ********************************/
 /**************************** DEBUT COMMANDE 4 *******************************/
-void test_lost(Grid& g, const Problem& p, const Historique_coup& hc)
+void test_lost(Grid& g, const Problem& p, const MoveHistoric& hc)
 {
     int i = 0; // prends les valeurs 1 et -1
 
-    if (hc.liste_coup[hc.nb_coup - 1].letter == 'M')
+    if (hc.list[hc.nbMove - 1].letter == 'M')
     {
 
         for (unsigned int j = 0; j < p.bombes; ++j)
         {
-            if (p.pos_bombe[j] == hc.liste_coup[hc.nb_coup - 1].position)
+            if (p.pos_bombe[j] == hc.list[hc.nbMove - 1].position)
             {
                 i = 1;
             }
@@ -455,11 +455,11 @@ void test_lost(Grid& g, const Problem& p, const Historique_coup& hc)
             i = -1;
         }
     }
-    if (hc.liste_coup[hc.nb_coup - 1].letter == 'D')
+    if (hc.list[hc.nbMove - 1].letter == 'D')
     {
         for (unsigned int k = 0; k < p.bombes; ++k)
         {
-            if (p.pos_bombe[k] == hc.liste_coup[hc.nb_coup - 1].position)
+            if (p.pos_bombe[k] == hc.list[hc.nbMove - 1].position)
             {
                 i = -1;
             }

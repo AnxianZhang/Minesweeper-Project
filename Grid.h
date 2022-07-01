@@ -15,7 +15,7 @@
 
 #include "Case.h"
 #include "Problem.h"
-#include "Historique.h"
+#include "Historic.h"
 #include "GameState.h"
 
 struct Grid {
@@ -106,7 +106,7 @@ void get_pos_bombes(const Grid& g, Problem& p);
  * @param [out] p: le problème
  * @param [out] hc: l'historique des coups
  */
-void saisie_grille(Grid& g, Problem& p, Historique_coup& hc);
+void saisie_grille(Grid& g, Problem& p, MoveHistoric& hc);
 
 /**
  * @brief Initalise les positions des bombes donnée en entrée
@@ -212,7 +212,7 @@ void give_value_adjacent(Grid& g, const Problem& p);
  * @param [in] p: le problème
  * @param [in] hc: l'historique de coup
  */
-void reconnaissance_coup(Grid& g, const Problem& p, const Historique_coup hc);
+void reconnaissance_coup(Grid& g, const Problem& p, const MoveHistoric hc);
 
 /**
  * @brief Créer la grille pour ensuite exploiter
@@ -222,7 +222,7 @@ void reconnaissance_coup(Grid& g, const Problem& p, const Historique_coup hc);
  * @param [in] p: le problème
  * @param [in] hc: l'historique de coup
  */
-void creation_grille(Grid& g, Problem& p, Historique_coup hc);
+void creation_grille(Grid& g, Problem& p, MoveHistoric hc);
 /***************************** FIN COMMANDE 2 ********************************/
 /**************************** DEBUT COMMANDE 3 *******************************/
 /**
@@ -255,7 +255,7 @@ void affichage_won(const Grid& g);
  * @param [in] p: le problème
  * @param [in] hc: l'historique des coups
  */
-void test_lost(Grid& g, const Problem& p, const Historique_coup& hc);
+void test_lost(Grid& g, const Problem& p, const MoveHistoric& hc);
 
 /**
  * @brief Affiche une ligne "game lost" ou "games not lost"
