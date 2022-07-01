@@ -1,18 +1,18 @@
-/****************************************
- Nom---------: Problem.h
- Role--------: Composant du problï¿½me
- Auteurs-----: Anxian Zhang, Ye vick
- Version-----: V2 du 31/12/2021
-****************************************/
+/**
+ * @file Problem.h
+ * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
+           Vick Ye (vickye2908@gmail.com)
+ * @brief composant du problÃ¨me
+ * @version 2
+ * @date 2021-12-31
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #ifndef _PROBLEM_
 #define _PROBLEM_
 
-/**
- * @brief Type structurï¿½ qui stock toutes les donnï¿½es relatives ï¿½
- *        la gï¿½neration d'un problï¿½me
- *
- */
 struct Problem {
     unsigned int lignes;
     unsigned int colonnes;
@@ -21,43 +21,43 @@ struct Problem {
 };
 
 /**
- * @brief Permet la saisie d'un problï¿½me
+ * @brief Permet la saisie d'un problème
  *
- * @param [out] p: problï¿½me ï¿½ crï¿½er
+ * @param [out] p: problème à créer
  */
 void saisie_problem(Problem& p);
 
 /**
  * @brief Alloue dynamiquement un tableau pour le nombre
- *        de bombes donnï¿½
+ *        de bombes donnée
  *
- * @see desallocation_bombe: dï¿½salloue le tableau de bombe
+ * @see desallocation_bombe: désalloue le tableau de bombe
  *
- * @param [out] p: le problï¿½me
+ * @param [out] p: le problème
  */
 void allocation_bombe(Problem& p);
 
 /**
- * @brief Verifie si la position du coup jouï¿½
- *        corespond ï¿½ celle d'une bombes
+ * @brief Verifie si la position du coup joué
+ *        corespond à celle d'une bombes
  *
- * @param [in] p: le problï¿½me
+ * @param [in] p: le problème
  * @param [in] pos_coup: la position du coup
  * @return int 1 si c'est vrais, 0 si c'est faux
  */
 int verification(const Problem& p, const unsigned int pos_coup);
 
 /**
- * @brief Dï¿½salloue le tableau de bombe
+ * @brief désalloue le tableau de bombe
  *
- * @param [out] p: le priblï¿½me
+ * @param [out] p: le problème
  */
 void desallocation_bombe(Problem& p);
 
 /**
- * @brief Affiche le problï¿½me
+ * @brief Affiche le problème
  *
- * @param [in] p: le problï¿½me
+ * @param [in] p: le problème
  */
 void affichage_problem(const Problem& p);
 

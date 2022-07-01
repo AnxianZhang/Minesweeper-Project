@@ -1,9 +1,14 @@
-/****************************************
- Nom---------: Problem.cpp
- Role--------: Composant du problème
- Auteurs-----: Anxian Zhang, Ye vick
- Version-----: V2 du 31/12/2021
-****************************************/
+/**
+ * @file Problem.cpp
+ * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
+           Vick Ye (vickye2908@gmail.com)
+ * @brief composant du problème
+ * @version 2
+ * @date 2021-12-31
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include <iostream>
 using namespace std;

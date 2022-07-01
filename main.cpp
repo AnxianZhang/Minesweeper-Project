@@ -1,11 +1,15 @@
-/****************************************
- Nom---------: main.c
- Role--------: Application qui nous
-               permet de jouer au 
-               démineur de bout en bout
- Auteurs-----: Anxian Zhang, Ye vick
- Version-----: V7 du 31/12/2021
-****************************************/
+/**
+ * @file main.cpp
+ * @author Anxian Zhang (gadanxianzhang@gmail.com.com)
+           Vick Ye (vickye2908@gmail.com)
+ * @brief Application qui nous permet de jouer
+          au démineur
+ * @version 7
+ * @date 2021-12-31
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 
 #include <iostream>
 #include <cassert>
