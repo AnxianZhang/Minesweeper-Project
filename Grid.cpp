@@ -21,10 +21,10 @@ using namespace std;
 /***************************** DEBUT COMMANDE 1 ******************************/
 void allocation_grille(Grid& g)
 {
-    g.grille_jeu = new Case * [g.lignes];
+    g.gameGrid = new Case * [g.lignes];
     for (unsigned int i = 0; i < g.lignes; ++i)
     {
-        g.grille_jeu[i] = new Case[g.colonnes];
+        g.gameGrid[i] = new Case[g.colonnes];
     }
 }
 
@@ -32,9 +32,9 @@ void desallocation_grille(Grid& g)
 {
     for (unsigned int i = 0; i < g.lignes; ++i)
     {
-        delete[]g.grille_jeu[i];
+        delete[]g.gameGrid[i];
     }
-    delete[]g.grille_jeu;
+    delete[]g.gameGrid;
 }
 
 void initialisation_grille(Grid& g, const Problem& p)
@@ -43,8 +43,8 @@ void initialisation_grille(Grid& g, const Problem& p)
     {
         for (unsigned int j = 0; j < p.colonnes; ++j)
         {
-            g.grille_jeu[i][j].content = 0;
-            g.grille_jeu[i][j].state = HIDE;
+            g.gameGrid[i][j].content = 0;
+            g.gameGrid[i][j].state = HIDE;
         }
     }
 }
@@ -61,9 +61,9 @@ void rand_bombes(Grid& g, const Problem& p)
             randl = rand() % p.lignes;
             randc = rand() % p.colonnes;
 
-            temps = g.grille_jeu[i][j];
-            g.grille_jeu[i][j] = g.grille_jeu[randl][randc];
-            g.grille_jeu[randl][randc] = temps;
+            temps = g.gameGrid[i][j];
+            g.gameGrid[i][j] = g.gameGrid[randl][randc];
+            g.gameGrid[randl][randc] = temps;
         }
     }
 }
@@ -86,7 +86,7 @@ void place_bombes_debut(Grid& g, const Problem& p)
         {
             for (unsigned int k = 0; k < p.colonnes; ++k)// colonne
             {
-                g.grille_jeu[j][k].content = 9; // '9' indique une bombe
+                g.gameGrid[j][k].content = 9; // '9' indique une bombe
                 ++indice_bombe;
                 if (indice_bombe == p.bombes)
                 {
@@ -108,7 +108,7 @@ void get_pos_bombes(const Grid& g, Problem& p)
     {
         for (unsigned int j = 0; j < p.colonnes; ++j)
         {
-            valeur = g.grille_jeu[i][j].content;
+            valeur = g.gameGrid[i][j].content;
             if (valeur == 9) // si valeur = mine
             {
                 // calcule de la position
@@ -147,8 +147,8 @@ void affichage_grille(const Grid& g, const Problem& p)
     {
         for (unsigned int k = 0; k < p.colonnes; ++k)
         {
-            CaseState state = g.grille_jeu[j][k].state;
-            unsigned int content = g.grille_jeu[j][k].content;
+            CaseState state = g.gameGrid[j][k].state;
+            unsigned int content = g.gameGrid[j][k].content;
 
             if (state == MARK)
             {
@@ -219,7 +219,7 @@ void attribution_bombe_perdu(Grid& g, const Problem& p)
         ligne = pos_bombe / p.colonnes;
         colonne = pos_bombe % p.colonnes;
 
-        g.grille_jeu[ligne][colonne].state = UNMASK;
+        g.gameGrid[ligne][colonne].state = UNMASK;
     }
 }
 
@@ -233,7 +233,7 @@ void initialisation_bombe(Grid& g, const Problem& p)
         pos_bombe = p.pos_bombe[i];
         ligne = pos_bombe / p.colonnes;
         colonne = pos_bombe % p.colonnes;
-        g.grille_jeu[ligne][colonne].content = 9;
+        g.gameGrid[ligne][colonne].content = 9;
     }
 }
 
@@ -261,11 +261,11 @@ void mark(Grid& g, const Problem& p, const unsigned int posc,
 
     if (state == 1) // coup juste
     {
-        g.grille_jeu[lc][cc].state = MARK;
+        g.gameGrid[lc][cc].state = MARK;
     }
     else // mauvais coup
     {
-        g.grille_jeu[lc][cc].state = MARK;
+        g.gameGrid[lc][cc].state = MARK;
         attribution_bombe_perdu(g, p);
     }
 }
@@ -276,15 +276,15 @@ void recurrence(Grid& g, const Problem& p, const unsigned int pos)
     unsigned int ligne = position_case / p.colonnes;
     unsigned int colonne = position_case % p.colonnes;
 
-    if (g.grille_jeu[ligne][colonne].state == UNMASK)
+    if (g.gameGrid[ligne][colonne].state == UNMASK)
     {
         return;
     }
 
-    g.grille_jeu[ligne][colonne].state = UNMASK;
+    g.gameGrid[ligne][colonne].state = UNMASK;
 
-    if (g.grille_jeu[ligne][colonne].content >= 1
-        && g.grille_jeu[ligne][colonne].content <= 8)
+    if (g.gameGrid[ligne][colonne].content >= 1
+        && g.gameGrid[ligne][colonne].content <= 8)
     {
         return;
     }
@@ -296,7 +296,7 @@ void recurrence(Grid& g, const Problem& p, const unsigned int pos)
             if (ligne + j >= 0 && ligne + j < p.lignes && colonne + k >= 0
                 && colonne + k < p.colonnes)
             {
-                if (g.grille_jeu[ligne + j][colonne + k].state == HIDE)
+                if (g.gameGrid[ligne + j][colonne + k].state == HIDE)
                 {
                     // nouvelle position à traité
                     position_case = ((ligne + j) * p.colonnes) + (colonne + k);
@@ -340,10 +340,10 @@ void give_value_adjacent(Grid& g, const Problem& p)
                 if ((ligne + j) < p.lignes && (ligne + j) >= 0 &&
                     ((colonne + k) < p.colonnes && (colonne + k) >= 0))
                 {
-                    unsigned int contient = g.grille_jeu[ligne + j][colonne + k].content;
+                    unsigned int contient = g.gameGrid[ligne + j][colonne + k].content;
                     if (contient >= 0 && contient <= 7)
                     {
-                        ++g.grille_jeu[ligne + j][colonne + k].content;
+                        ++g.gameGrid[ligne + j][colonne + k].content;
                     }
                 }
             }
@@ -395,14 +395,14 @@ void test_won(Grid& g, const Problem& p)
     {
         for (unsigned int j = 0; j < p.colonnes; ++j)
         {
-            if (g.grille_jeu[i][j].state == MARK &&
-                g.grille_jeu[i][j].content == 9)
+            if (g.gameGrid[i][j].state == MARK &&
+                g.gameGrid[i][j].content == 9)
             {
                 ++compteur_bombe_MARK;
             }
-            else if (g.grille_jeu[i][j].state == UNMASK &&
-                (g.grille_jeu[i][j].content <= 8 &&
-                    g.grille_jeu[i][j].content >= 0))
+            else if (g.gameGrid[i][j].state == UNMASK &&
+                (g.gameGrid[i][j].content <= 8 &&
+                    g.gameGrid[i][j].content >= 0))
             {
                 ++compteur_case_UNMARK;
             }
@@ -516,8 +516,8 @@ void traitement_grille(Grid& g)
                 ++i; // incrémentation du nombre de '|'
                 if (i == 2)
                 {
-                    g.grille_jeu[num_ligne][num_colonne].content = 0;
-                    g.grille_jeu[num_ligne][num_colonne].state = UNMASK;
+                    g.gameGrid[num_ligne][num_colonne].content = 0;
+                    g.gameGrid[num_ligne][num_colonne].state = UNMASK;
                     ++num_colonne;
 
                     i = 1;
@@ -531,8 +531,8 @@ void traitement_grille(Grid& g)
             }
             else if (storage >= '1' && storage <= '8')
             {
-                g.grille_jeu[num_ligne][num_colonne].content = val_adja(storage);
-                g.grille_jeu[num_ligne][num_colonne].state = UNMASK;
+                g.gameGrid[num_ligne][num_colonne].content = val_adja(storage);
+                g.gameGrid[num_ligne][num_colonne].state = UNMASK;
                 ++num_colonne;
                 //initialise ï¿½ 0 ï¿½ chaque fois qu'on a une valeur != de '|'
                 i = 0;
@@ -540,24 +540,24 @@ void traitement_grille(Grid& g)
             }
             else if (storage == 'm')
             {
-                g.grille_jeu[num_ligne][num_colonne].content = 9;
-                g.grille_jeu[num_ligne][num_colonne].state = UNMASK;
+                g.gameGrid[num_ligne][num_colonne].content = 9;
+                g.gameGrid[num_ligne][num_colonne].state = UNMASK;
                 ++num_colonne;
                 i = 0;
                 j = 0;
             }
             else if (storage == 'x')
             {
-                g.grille_jeu[num_ligne][num_colonne].content = 0;
-                g.grille_jeu[num_ligne][num_colonne].state = MARK;
+                g.gameGrid[num_ligne][num_colonne].content = 0;
+                g.gameGrid[num_ligne][num_colonne].state = MARK;
                 ++num_colonne;
                 i = 0;
                 j = 0;
             }
             else
             {
-                g.grille_jeu[num_ligne][num_colonne].content = 0;
-                g.grille_jeu[num_ligne][num_colonne].state = HIDE;
+                g.gameGrid[num_ligne][num_colonne].content = 0;
+                g.gameGrid[num_ligne][num_colonne].state = HIDE;
                 ++num_colonne;
                 i = 0;
                 j = 0;
@@ -581,7 +581,7 @@ unsigned int count_hidden(const Grid& g)
     {
         for (unsigned int j = 0; j < g.colonnes; ++j)
         {
-            if (g.grille_jeu[i][j].state == HIDE)
+            if (g.gameGrid[i][j].state == HIDE)
             {
                 ++nb_HIDE;
             }
@@ -599,7 +599,7 @@ void choice_move(const Grid& g, MoveDetails& nw, const unsigned int nb_HIDE)
 
     for (unsigned int i = 0; i < g.lignes; ++i){
         for (unsigned int j = 0; j < g.colonnes; ++j){
-            if (g.grille_jeu[i][j].state == HIDE){ 
+            if (g.gameGrid[i][j].state == HIDE){ 
                 ++k;
 
                 /*prendre un valeur dans l'interval [1;10]

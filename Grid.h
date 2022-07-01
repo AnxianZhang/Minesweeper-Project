@@ -19,7 +19,7 @@
 #include "GameState.h"
 
 struct Grid {
-    Case** grille_jeu;
+    Case** gameGrid;
     unsigned int lignes;
     unsigned int colonnes;
     GameState state; // état du jeu
