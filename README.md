@@ -1,4 +1,4 @@
-# Minesweeper-Project
+# Minesweeper (2éme projet)
 
 ## Note final: 19.5/20
 
