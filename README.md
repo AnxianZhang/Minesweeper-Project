@@ -1,4 +1,4 @@
-# Minesweeper (2ème projet)
+# Minesweeper (Structures de Données et Algorithmes)
 
 ## Note: 19.5/20
 
