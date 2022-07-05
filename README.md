@@ -1,6 +1,6 @@
-# Minesweeper (2éme projet)
+# Minesweeper
 
-## Note final: 19.5/20
+## Note: 19.5/20
 
 ### Recommandation
 Afin de mieux comprendre l'application, je vous invite à lire I.Présentation de l'application
