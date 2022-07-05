@@ -1,4 +1,4 @@
-# Minesweeper
+# Minesweeper (2ème projet)
 
 ## Note: 19.5/20
 
